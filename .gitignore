@@ -6,6 +6,11 @@ __pycache__/
 # C extensions
 *.so
 
+# user generated files
+rf_model.pkl
+rf_model.zip
+test.py
+
 # Distribution / packaging
 .Python
 build/
