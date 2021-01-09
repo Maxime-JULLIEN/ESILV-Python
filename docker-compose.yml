@@ -1,0 +1,44 @@
+version: "3.7"
+services:
+  api-service:
+    build: ./api/
+    volumes:
+      - ./api/:/usr/src/app/
+    networks:
+      - web
+    environment:
+      FLASK_DEBUG: ${FLASK_DEBUG}
+      FLASK_APP: ${FLASK_APP}
+      FLASK_ENV: ${FLASK_ENV}
+      FLASK_RUN_HOST: ${FLASK_RUN_HOST}
+      FLASK_RUN_PORT: ${FLASK_RUN_PORT}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.backend_python_data.rule=Host(`python-data.linkable.tech`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.backend_python_data.entrypoints=websecure"
+      - "traefik.http.routers.backend_python_data.tls=true"
+      - "traefik.http.routers.backend_python_data.tls.certresolver=leresolver"
+      - "traefik.http.services.backend_python_data.loadbalancer.server.port=5000"
+      - "traefik.docker.network=web"
+
+  frontend:
+    build: ./interface/
+    tty: true
+    networks:
+      - web
+    volumes:
+      - ./interface/src/:/usr/src/app/src/
+      - ./interface/build/:/usr/src/app/build/
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.interface_python_data.rule=Host(`python-data.linkable.tech`)"
+      - "traefik.http.routers.interface_python_data.entrypoints=websecure"
+      - "traefik.http.routers.interface_python_data.tls=true"
+      - "traefik.http.routers.interface_python_data.tls.certresolver=leresolver"
+      - "traefik.http.services.interface_python_data.loadbalancer.server.port=3000"
+      - "traefik.docker.network=web"
+
+networks:
+  default:
+  web:
+    external: true

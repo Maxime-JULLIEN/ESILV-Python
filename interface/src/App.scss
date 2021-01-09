@@ -1,0 +1,29 @@
+@import "@material/react-button/index.scss";
+@import "@material/react-text-field/index.scss";
+@import "@material/react-material-icon/index.scss";
+@import "@material/react-card/index.scss";
+
+.App {
+  text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  // color: white;
+}
+
+.App-Card {
+  padding: 12px;
+}
+
+.Email-Input {
+  width: 100%;
+  height: 50vh;
+}
+
+.Email-Input-Container {
+  padding-bottom: 24px;
+}
