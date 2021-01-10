@@ -13,14 +13,6 @@ We had to __visualize__ the data and create a __model__ which predicts if a give
 
 ## Installation
 
-### Jupyter Notebook - MUST BE MODIFIED
-
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
-
-```bash
-pip install foobar
-```
-
 ### Interface and API
 
 To start the API, you have to build the docker containers :
@@ -39,17 +31,6 @@ If you want to deploy it, you must change the domain name of your server for tho
 
 
 ## Usage
-
-### Jupyter Notebook ??????????
-
-
-```python
-import foobar
-
-foobar.pluralize('word') # returns 'words'
-foobar.pluralize('goose') # returns 'geese'
-foobar.singularize('phenomena') # returns 'phenomenon'
-```
 
 ### API
 
