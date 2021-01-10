@@ -1,14 +1,15 @@
-# ESILV-Python
-ESILV Project - Python for data analysis 
+# ESILV Python Project - Python for data analysis 
 
-We decided to work on the Spambase Data Set. We had to __visualize__ the data and create a __model__ which predicts if a given email is a spam or not, based on several attributes.
+We decided to work on the Spambase Data Set. 
 
-48 float attributes which represent the frequency of a __specific word__
-6 float attributes of type which represent the frequency of a __specific character__
-1 float attribute which represents the __average__ length of uninterrupted __sequences of capital letters__
-1 integer attribute which represents the length of __longest__ uninterrupted __sequence of capital letters__
-1 integer attribute wich represents the __total__ number of __capital letters in the e-mail__
-1 nominal class attribute which denotes whether the e-mail was considered __spam__ (1) or __not__ (0)
+We had to __visualize__ the data and create a __model__ which predicts if a given email is a spam or not, based on several attributes.
+
+- 48 float attributes which represent the frequency of a __specific word__
+- 6 float attributes of type which represent the frequency of a __specific character__
+- 1 float attribute which represents the __average__ length of uninterrupted __sequences of capital letters__
+- 1 integer attribute which represents the length of __longest__ uninterrupted __sequence of capital letters__
+- 1 integer attribute wich represents the __total__ number of __capital letters in the e-mail__
+- 1 nominal class attribute which denotes whether the e-mail was considered __spam__ (1) or __not__ (0)
 
 ## Installation
 
