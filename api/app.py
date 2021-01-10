@@ -8,6 +8,7 @@ from collections import Counter
 
 app = Flask(__name__)
 
+# Import Random Forest model to predict
 model = joblib.load("./randForest.pkl")
 
 
@@ -19,15 +20,18 @@ def process_email(email):
                  'parts', 'pm', 'direct', 'cs', 'meeting', 'original', 'project', 're', 'edu', 'table',
                  'conference', ';', '(', '[', '!', '$', '#']
 
-    text_split = re.findall(r'\w+|\#|\?|\;|\(|\[|\!|\$', email)
-    text_split = [x.lower() for x in text_split]
-    text_split_count = Counter(text_split)
+    # Find all word and some characters
+    match_data = re.findall(r'\w+|\#|\?|\;|\(|\[|\!|\$', email)
+    # lowercase all word to prevent the first uppercase
+    match_data = [x.lower() for x in match_data]
+    variables_cnt = Counter(match_data)  # Count the different word occurences
 
     def calcul_freq(x):
-        return (float(0), 100 * text_split_count[x] / len(text_split))[x in text_split_count.keys()]
+        return (float(0), 100 * variables_cnt[x] / len(match_data))[x in variables_cnt.keys()]
 
-    results = list(map(calcul_freq, variables))
-    all_uppercase_sequence = re.findall(r"[A-Z]+", email)
+    results = list(map(calcul_freq, variables))  # Calcul the frequencies
+    all_uppercase_sequence = re.findall(
+        r"[A-Z]+", email)  # Find all uppercase sequences
     capital_run_length_total = sum(map(len, all_uppercase_sequence))
 
     if (capital_run_length_total == 0):
@@ -52,17 +56,20 @@ def hello():
 @ app.route('/api/predict', methods=['POST'])
 def predict():
     try:
-        json_ = request.json
+        json_ = request.json  # Parse the request body
+        # Check if the key content is in the body and is a string
         if 'content' not in json_ or not isinstance(json_["content"], str):
             return jsonify("Please enter a valid email.")
+        # Process to get some word frequencies
         results = process_email(json_["content"])
-        prediction = model.predict([results])
+        prediction = model.predict([results])  # Predict using the saved model
         prediction = (False, True)[prediction[0]]
         return jsonify({
             'prediction': prediction,
             'results': results
         })
     except Exception as e:
+        # If an error occured, return this information to the client
         print("error")
         print(str(e))
         return jsonify("An error occured.")
